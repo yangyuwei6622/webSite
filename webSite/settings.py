@@ -23,10 +23,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '707+l5#c3hk-l@o^i28pzfz=e+5pvl47z23*&z(#)op4&hyzjn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+#开发阶段
 DEBUG = True
+ALLOWED_HOSTS = []
+#发布阶段
+# DEBUG = False
+# ALLOWED_HOSTS = ['*']
+#
 
-# ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
@@ -45,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -80,9 +84,9 @@ WSGI_APPLICATION = 'webSite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'yywSite',  # 注意了，这个数据库名django不能创建，你自己需要先创建数据库
+        'NAME': 'yywsite',  # 注意了，这个数据库名django不能创建，你自己需要先创建数据库
         'USER': 'root',
-        'PASSWORD': 'php@2018',
+        'PASSWORD': '123456',
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }
@@ -125,4 +129,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+#STATIC_URL为逻辑路径
+#STATICFILES_DIRS为物理路径
+
+# STATIC_URL = '/abc/'
+# <img src="/abc/yywSite/11.jpeg" width="230" height="300">
+#此两者必须一致,防止外部攻击,而static是真实路径
+#后台拼接字符串可以忽略/,实际上是static 对abc做了替换
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+#BASE_DIR最后是带/的
+    os.path.join(BASE_DIR, 'static')
+]
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/upload')

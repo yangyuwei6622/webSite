@@ -20,6 +20,7 @@ from yywSite import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.index),
     path('index/', views.index),
     path('test/', views.test),
     path('yyw/', include('yywSite.urls'))
